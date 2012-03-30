@@ -1,7 +1,7 @@
 package wsedt
 
 class Salle {
-	String nom
+	String nom, batiment
 	int capacite
 	
 	//boolean tp
