@@ -9,3 +9,4 @@
 /out/**
 stacktrace.log
 test/reports
+target/*
