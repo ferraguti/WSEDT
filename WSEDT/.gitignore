@@ -9,6 +9,6 @@
 /out/**
 stacktrace.log
 test/reports
-target/*
+target/
 web-app/WEB-INF/classes/
 *DB*
