@@ -14,3 +14,4 @@ target-eclipse/
 web-app/WEB-INF/classes/
 *DB*
 /WSEDT/target-eclipse
+/WSEDT/.classpath
