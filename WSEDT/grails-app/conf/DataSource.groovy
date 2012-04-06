@@ -1,6 +1,6 @@
 dataSource {
     pooled = true
-    driverClassName = "org.h2.Driver"
+    driverClassName = "org.hsqldb.jdbcDriver"
     username = "sa"
     password = ""
 }
