@@ -9,5 +9,10 @@ class Cours {
     static constraints = {
 		nom blank: false, unique: true
 		nbrInscrits min: 1
+		reservation nullable: true
     }
+	
+	String toString(){
+		return nom
+	}
 }

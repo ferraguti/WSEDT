@@ -1,18 +1,54 @@
 package wsedt
 
 class Reservation {
-    Date date //calendar ?
     Salle salle
     Cours cours
-    float duree //en heure
+    int duree //en minute
+	int annee, mois, jour, heure, minute = 0
+	String nom
 
     static constraints = {
-        duree min: 0.25f
+        duree min: 15, max: 240
+		annee min: 2012
+		mois min: 1, max: 12
+		jour min:1, max: 31 // + de contrainte en vraie
+		heure min:8, max: 19
+		minute min:0, max: 59
+		nom nullable: true
     }
+	
+	boolean estApres(Reservation d){
+		if(annee > d.annee)
+			return true
+		else if(mois > d.mois)
+			return true
+		else if(jour > d.jour)
+			return true
+		else if(heure > d.heure)
+			return true
+		else if(minute > d.minute)
+			return true
+		else
+			return false
+	}
+	
+	boolean  enMemeTemps(Reservation d){
+		return(annee == d.annee && mois == d.mois && jour == d.jour && heure == d.heure && minute == d.minute)
+	}
+	
+	boolean estAvant(Reservation d){
+		return !(estApres(d))
+	}
+	
+	String toString(){
+		return "Resarvation a " + heure + "h" + minute + ", le " + jour + "/" + mois + "/" + annee + " (" + duree + " minutes)" 
+	}
    
-    /*Date getFinCours(){
-        Date apresCours = new Date(date)
-        apresCours.setHours(date.getHours() + duree)
+    /*Reservation getFinReservation(){
+        Reservation apresCours = new Reservation(this)
+        apresCours.setHeure(heure + (duree / 60))
+        apresCours.setMinute(minute + (duree % 60))
+        
         return apresCours;
     }
    

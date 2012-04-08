@@ -5,11 +5,14 @@ class Salle {
 	int capacite
 	
 	//boolean tp
-	
-	static belongsTo = [reservation : Reservation]
 
     static constraints = {
 		nom blank: false, unique: true
 		capacite min:1
+		batiment blank:false
     }
+	
+	String toString(){
+		return batiment + "-" + nom
+	}
 }
