@@ -8,8 +8,6 @@ import wsedt.Salle;
 abstract class Algo {
 	
 	static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment, int capaciteMin){
-		//+ filtrer les salles
-		//+ int jour int heure
 		
 	   Reservation arg = new Reservation(annee: annee, mois: mois, jour: jour, heure: heure, minute: minute)
 	   ArrayList<Reservation> reservations = Reservation.getAll()
@@ -47,6 +45,8 @@ abstract class Algo {
 		return sallesLibres
 	}
 	
+	//Surcharge :
+	
 	static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute){
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), 0)
 	}
@@ -61,6 +61,25 @@ abstract class Algo {
 	}
 	
 	
+	 static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute){
+		 Date now = new Date()
+		 
+		return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, new String(""), 0)
+	}
+	 
+	
+	static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute, String batiment){
+		Date now = new Date()
+		
+		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, batiment, 0)
+	 }
+	 
+	  static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute, int capaciteMin){
+		  Date now = new Date()
+		  
+		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, new String(""), capaciteMin)
+	 }
+	 
 
 
 }

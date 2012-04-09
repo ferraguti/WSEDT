@@ -8,10 +8,11 @@ class Reservation {
     Cours cours
     int duree = 120 //en minute
 	int annee = 2012
-	int mois, jour
+	int mois = 1
+	int jour = 1
 	int heure = 8
 	int minute = 0
-	String nom //utilisé pour avoir un nom identifiable dans list()
+	String nom //utilisé pour avoir un nom identifiable dans list
 
     static constraints = {
         duree min: 15, max: 240

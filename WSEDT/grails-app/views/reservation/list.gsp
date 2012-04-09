@@ -65,7 +65,7 @@
 					
 						<td>${fieldValue(bean: reservationInstance, field: "minute")}</td>
 						
-						<td>${fieldValue(bean: reservationInstance, field: "nom")}</td>
+						<td><g:link action="show" id="${reservationInstance.id}">${fieldValue(bean: reservationInstance, field: "nom")}</g:link></td>
 					
 					</tr>
 				</g:each>

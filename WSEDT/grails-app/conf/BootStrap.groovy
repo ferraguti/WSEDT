@@ -42,14 +42,14 @@ class BootStrap {
 		}
 		
 		if(!Reservation.count()){
-			new Reservation(salle: Salle.findByNom("10"), cours: Cours.findByNom("Design Pattern MVC"), annee: 2012, mois: 4, jour: 3, heure: 8, minute: 0).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("IAWS Projet, TP3"), annee: 2012, mois: 4, jour: 5, heure: 8, minute: 0).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("211"), cours: Cours.findByNom("MA TD : Scrum BDD"), annee: 2012, mois: 4, jour: 3, heure: 13, minute: 30).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("204"), cours: Cours.findByNom("IAWS Projet, TP4"), annee: 2012, mois: 4, jour: 6, heure: 10).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("205"), cours: Cours.findByNom("JEE Projet, TP6"), annee: 2012, mois: 4, jour: 5, heure: 10).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("JEE Projet, TP7"), annee: 2012, mois: 4, jour: 5, heure: 13, minute: 30).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("210"), cours: Cours.findByNom("QCM JEE et IAWS"), annee: 2012, mois: 4, jour: 6, heure: 12, duree: 15).save(failOnError: true)
-			
+//			new Reservation(salle: Salle.findByNom("10"), cours: Cours.findByNom("Design Pattern MVC"), annee: 2012, mois: 4, jour: 3, heure: 8, minute: 0).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("IAWS Projet, TP3"), annee: 2012, mois: 4, jour: 5, heure: 8, minute: 0).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("211"), cours: Cours.findByNom("MA TD : Scrum BDD"), annee: 2012, mois: 4, jour: 3, heure: 13, minute: 30).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("204"), cours: Cours.findByNom("IAWS Projet, TP4"), annee: 2012, mois: 4, jour: 6, heure: 10).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("205"), cours: Cours.findByNom("JEE Projet, TP6"), annee: 2012, mois: 4, jour: 5, heure: 10).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("JEE Projet, TP7"), annee: 2012, mois: 4, jour: 5, heure: 13, minute: 30).save(failOnError: true)
+//			new Reservation(salle: Salle.findByNom("210"), cours: Cours.findByNom("QCM JEE et IAWS"), annee: 2012, mois: 4, jour: 6, heure: 12, duree: 15).save(failOnError: true)
+//			
 			//System.out.println(Algo.rechercherSalles(2012, 4, 3, 9, 59, "1TP1", 41))
 		}
 		
