@@ -41,7 +41,7 @@
 					
 						<g:sortableColumn property="minute" title="${message(code: 'reservation.minute.label', default: 'Minute')}" />
 						
-						<th><g:message code="cours.reservation.nom" default="Nom" /></th>
+						<g:sortableColumn property="nom" title="${message(code: 'reservation.nom.label', default: 'Nom')}" />
 					
 					</tr>
 				</thead>
@@ -65,7 +65,7 @@
 					
 						<td>${fieldValue(bean: reservationInstance, field: "minute")}</td>
 						
-						<td><g:link action="show" id="${reservationInstance.id}">${fieldValue(bean: reservationInstance, field: "nom")}</g:link></td>
+						<td><g:link controller="reservation" action="show" id="${reservationInstance.id}">${fieldValue(bean: reservationInstance, field: "nom")}</g:link></td>
 					
 					</tr>
 				</g:each>

@@ -1,4 +1,5 @@
 import wsedt.Cours
+
 import wsedt.Reservation
 import wsedt.Salle
 
@@ -38,6 +39,10 @@ class BootStrap {
 		
 		if(!Reservation.count()){
 			new Reservation(salle: Salle.findByNom("10"), cours: Cours.findByNom("Design Pattern MVC"), duree: 120, annee: 2012, mois: 4, jour: 3, heure: 8, minute: 0).save(failOnError: true)
+			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("IAWS Projet, TP3"), duree: 120, annee: 2012, mois: 4, jour: 5, heure: 8, minute: 0).save(failOnError: true)
+			//println(Reservation.rechercherSalles(2012, 4, 3, 8, 0))
+			//println(Reservation.rechercherSalles(2012, 4, 3, 9, 19))
+			//println(Reservation.rechercherSalles(2012, 4, 3, 10, 1))
 		}
 		
   

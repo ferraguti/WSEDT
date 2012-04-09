@@ -26,10 +26,7 @@ class ReservationController {
             return
         } 
 		
-		reservationInstance.setNom("Resarvation a " + reservationInstance.getHeure() + "h" + reservationInstance.getMinute() + ", le" + reservationInstance.getJour() + "/" + reservationInstance.getMois() + "/" + reservationInstance.getAnnee()
-		+ " (" + reservationInstance.getDuree() + " reservationInstance.getMinute()s)")
-		
-		//reservationInstance.getCours().setReservation(reservationInstance)
+		reservationInstance.setNom("Resarvation a " + reservationInstance.getHeure() + "h" + reservationInstance.getMinute() + ", le" + reservationInstance.getJour() + "/" + reservationInstance.getMois() + "/" + reservationInstance.getAnnee()+ " (" + reservationInstance.getDuree() + " minutes)")
 
 		flash.message = message(code: 'default.created.message', args: [message(code: 'reservation.label', default: 'Reservation'), reservationInstance.id])
         redirect(action: "show", id: reservationInstance.id)
