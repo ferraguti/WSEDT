@@ -1,19 +1,25 @@
 package wsedt
 
+import java.util.Date
+import java.util.Calendar
+
 class Reservation {
     Salle salle
     Cours cours
-    int duree //en minute
-	int annee, mois, jour, heure, minute = 0
-	String nom
+    int duree = 120 //en minute
+	int annee = 2012
+	int mois, jour
+	int heure = 8
+	int minute = 0
+	String nom //utilisé pour avoir un nom identifiable dans list()
 
     static constraints = {
         duree min: 15, max: 240
 		annee min: 2012
 		mois min: 1, max: 12
-		jour min:1, max: 31 // + de contrainte en vraie
-		heure min:8, max: 19
-		minute min:0, max: 59
+		jour min: 1, max: 31 // + de contrainte en vraie
+		heure min: 8, max: 19
+		minute min: 0, max: 59
 		nom nullable: true
     }
 	
@@ -50,11 +56,18 @@ class Reservation {
 	}
 	
 	boolean estAvant(Reservation d){
-		return !(estApres(d))
+		return d.estApres(this)
 	}
 	
 	String toString(){
-		return "Resarvation a " + heure + "h" + minute + ", le " + jour + "/" + mois + "/" + annee + " (" + duree + " minutes)" 
+		String fullnom = new String("Resarvation a " + heure + "h")
+		
+		if(minute < 10)
+			fullnom += "0"
+			
+		fullnom += minute + ", le " + jour + "/" + mois + "/" + annee + " (" + duree + " minutes)" 
+		
+		return  fullnom
 	}
    
     Reservation getFinReservation(){
@@ -67,45 +80,10 @@ class Reservation {
 			minute -= 60
 		}
 		
-		
         apresCours.setHeure(heure)
         apresCours.setMinute(minute)
         
         return apresCours;
-    }
-   
-   
-    //a mettre dans quelle classe ?
-    static String rechercherSalles(int annee, int mois, int jour, int heure, int minute){
-        //+ filtrer les salles
-        //+ int jour int heure
-		
-       Reservation arg = new Reservation(annee: annee, mois: mois, jour: jour, heure: heure, minute: minute)
-       ArrayList<Reservation> reservations = Reservation.getAll()
-       ArrayList<Salle> sallesNonLibres = new ArrayList<Salle>()
-       
-        //trouver toutes les salles non disponibles
-        for(Reservation r : reservations){
-			Salle s = r.getSalle()
-			
-            if(!sallesNonLibres.contains(s)){
-               Reservation finCours = r.getFinReservation()
-               
-                if(r.equals(arg) || (r.estApres(arg) && r.estAvant(finCours)))
-                    sallesNonLibres.add(s)
-            }
-        }
-       
-        //les autres salles sont celles disponibles
-        ArrayList<Salle> salles = Salle.getAll()
-        ArrayList<Salle> sallesLibres = new ArrayList<Salle>()
-		
-        for(Salle s : salles){
-            if(!sallesNonLibres.contains(s))
-                sallesLibres.add(s)
-        }
-       
-        return sallesLibres.toString()
     }
 
 }

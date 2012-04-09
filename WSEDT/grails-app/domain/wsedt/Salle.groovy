@@ -7,7 +7,7 @@ class Salle {
 	//boolean tp
 
     static constraints = {
-		nom blank: false, unique: true
+		nom blank: false
 		capacite min:1
 		batiment blank:false
     }
