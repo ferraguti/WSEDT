@@ -1,13 +1,16 @@
 package wsedt.Algo
 
 import java.util.ArrayList;
+import java.util.Date
 
 import wsedt.Reservation;
 import wsedt.Salle;
 
 abstract class Algo {
 	
-	static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment, int capaciteMin){
+	static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment, int capaciteMin){
+		
+		System.out.println("Reservation pour le " + jour + "/" + mois + "/" + annee +", a " + heure + "h" + minute)
 		
 	   Reservation arg = new Reservation(annee: annee, mois: mois, jour: jour, heure: heure, minute: minute)
 	   ArrayList<Reservation> reservations = Reservation.getAll()
@@ -20,7 +23,7 @@ abstract class Algo {
 			
 			if(!sallesNonLibres.contains(s)){
 			   Reservation finCours = debutReservation.getFinReservation()
-			  // System.out.println("Fin de la reservation : " + finCours)
+			   //System.out.println("Fin de la reservation : " + finCours)
 			   
 			   //Si la salle n'est pas libre (ie. en même temps ou entre le cours)
 				if(debutReservation.enMemeTemps(arg) || (arg.estApres(debutReservation) && arg.estAvant(finCours))){
@@ -29,56 +32,76 @@ abstract class Algo {
 				}
 			}
 		}
+		
+		//System.out.println("Liste des salles non libres : " + sallesNonLibres)
 	   
 		//Les autres salles sont celles disponibles
 		ArrayList<Salle> salles = Salle.getAll()
+		//System.out.println("Liste des salles : " + salles)
 		ArrayList<Salle> sallesLibres = new ArrayList<Salle>()
 		
 		for(Salle s : salles){
-			if(!sallesNonLibres.contains(s))
+			//System.out.println(Algo.contient(sallesNonLibres, s))
+			if(!Algo.contient(sallesNonLibres, s)) {
 				if(batiment.isEmpty() || s.getBatiment().equals(batiment)){ //On vérifie si le batiment de la salle est celui demandé
-					if(capaciteMin == 0 || s.getCapacite() >= capaciteMin) //On vérifie si la capacité minimum de la salle est celle demandée
+					if(capaciteMin == 0 || s.getCapacite() >= capaciteMin) {//On vérifie si la capacité minimum de la salle est celle demandée
 						sallesLibres.add(s)
+						//System.out.println("La salle " + s + " est donc libre")
+					}
 				}
+			}
 		}
 		
-		return sallesLibres
+		return sallesLibres.toString()
 	}
 	
+	//Pour une raison inconnue "contiens" ne marche pas ici
+	 static boolean contient(ArrayList<Salle> sallesNonLibres, Salle salle){
+		for(Salle s : sallesNonLibres){
+			if(s.toString().equals(salle.toString()))
+				return true
+		}
+		
+		return false
+	}
+	
+	 
 	//Surcharge :
 	
-	static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute){
+	static String rechercherSalles(int annee, int mois, int jour, int heure, int minute){
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), 0)
 	}
 	
 	
-	 static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment){
+	 static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment){
 		return rechercherSalles(annee, mois, jour, heure, minute, batiment, 0)
 	}
 	
-	 static ArrayList<Salle> rechercherSalles(int annee, int mois, int jour, int heure, int minute, int capaciteMin){
+	 static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, int capaciteMin){
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), capaciteMin)
 	}
 	
+	 //Marche pas :
 	
-	 static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute){
+	 static String rechercherSalles(int jour, int heure, int minute){
 		 Date now = new Date()
 		 
-		return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, new String(""), 0)
+		return rechercherSalles(now.getYear() - 100 + 2000, now.getMonth() + 1, jour, heure, minute, new String(""), 0)
 	}
 	 
 	
-	static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute, String batiment){
+	static String rechercherSalles(int jour, int heure, int minute, String batiment){
 		Date now = new Date()
 		
 		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, batiment, 0)
 	 }
 	 
-	  static ArrayList<Salle> rechercherSalles(int jour, int heure, int minute, int capaciteMin){
+	  static String rechercherSalles(int jour, int heure, int minute, int capaciteMin){
 		  Date now = new Date()
 		  
 		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, new String(""), capaciteMin)
 	 }
+	 
 	 
 
 

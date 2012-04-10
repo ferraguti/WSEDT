@@ -26,7 +26,6 @@ class ReservationController {
 			System.out.println("ERREUR")
 			
 			flash.message = "Erreur : la salle ne contient pas assez de place pour accueillir le cours"
-			//render(view: "create", model: [reservationInstance: reservationInstance])
 			redirect(action: "create")
 		}
 		else{
