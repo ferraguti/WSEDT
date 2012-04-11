@@ -15,4 +15,8 @@ class Cours {
 	String toString(){
 		return nom
 	}
+	
+	boolean equals(Cours c){
+		return (this.nom.equals(c.getNom()) && (this.nbrInscrits == c.getNbrInscrits()))
+	}
 }
