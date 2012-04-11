@@ -42,15 +42,14 @@ class BootStrap {
 		}
 		
 		if(!Reservation.count()){
-			new Reservation(salle: Salle.findByNom("10"), cours: Cours.findByNom("Design Pattern MVC"), annee: 2012, mois: 4, jour: 3, heure: 8, minute: 0).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("IAWS Projet, TP3"), annee: 2012, mois: 4, jour: 5, heure: 8, minute: 0).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("211"), cours: Cours.findByNom("MA TD : Scrum BDD"), annee: 2012, mois: 4, jour: 3, heure: 13, minute: 30).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("204"), cours: Cours.findByNom("IAWS Projet, TP4"), annee: 2012, mois: 4, jour: 6, heure: 10).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("205"), cours: Cours.findByNom("JEE Projet, TP6"), annee: 2012, mois: 4, jour: 5, heure: 10).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("203"), cours: Cours.findByNom("JEE Projet, TP7"), annee: 2012, mois: 4, jour: 5, heure: 13, minute: 30).save(failOnError: true)
-			new Reservation(salle: Salle.findByNom("210"), cours: Cours.findByNom("QCM JEE et IAWS"), annee: 2012, mois: 4, jour: 6, heure: 12, duree: 15).save(failOnError: true)
+			new Reservation(Salle.findByNom("10"), Cours.findByNom("Design Pattern MVC"), 2012,  4, 3, 8,  0).save(failOnError: true)
+			new Reservation(Salle.findByNom("203"), Cours.findByNom("IAWS Projet, TP3"), 2012,  4, 5, 8,  0).save(failOnError: true)
+			new Reservation(Salle.findByNom("211"), Cours.findByNom("MA TD : Scrum BDD"), 2012,  4, 3, 13,  30).save(failOnError: true)
+			new Reservation(Salle.findByNom("204"), Cours.findByNom("IAWS Projet, TP4"), 2012,  4, 6, 10, 0).save(failOnError: true)
+			new Reservation(Salle.findByNom("205"), Cours.findByNom("JEE Projet, TP6"), 2012,  4, 5, 10, 0).save(failOnError: true)
+			new Reservation(Salle.findByNom("203"), Cours.findByNom("JEE Projet, TP7"), 2012,  4, 5, 13,  30).save(failOnError: true)
+			new Reservation(Salle.findByNom("210"), Cours.findByNom("QCM JEE et IAWS"), 2012,  4, 6, 12, 0, 15).save(failOnError: true)
 		}
-
 
   }
     def destroy = {

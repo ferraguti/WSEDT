@@ -35,19 +35,42 @@ class Reservation {
 		this.minute = r.minute;
 		this.nom = r.nom;
 	}
-
+	 
+	Reservation(Salle salle, Cours cours, int annee, int mois, int jour, int heure, int minute){
+		this.salle = salle;
+		this.cours = cours;
+		this.annee = annee;
+		this.mois = mois;
+		this.jour = jour;
+		this.heure = heure;
+		this.minute = minute;
+		this.nom = this.toString()
+	}
+	
+	Reservation(Salle salle, Cours cours, int annee, int mois, int jour, int heure, int minute, int duree){
+		this.salle = salle;
+		this.cours = cours;
+		this.duree = duree;
+		this.annee = annee;
+		this.mois = mois;
+		this.jour = jour;
+		this.heure = heure;
+		this.minute = minute;
+		this.nom = this.toString()
+	}
 	
 	boolean estApres(Reservation d){
-		if(annee > d.annee)
-			return true
-		else if(mois > d.mois)
-			return true
-		else if(jour > d.jour)
-			return true
-		else if(heure > d.heure)
-			return true
-		else if(minute > d.minute)
-			return true
+		
+		if(annee != d.annee)
+			return (annee > d.annee)
+		else if(mois != d.mois)
+			return (mois > d.mois)
+		else if(jour != d.jour)
+			return (jour > d.jour)
+		else if(heure != d.heure)
+			return (heure > d.heure)
+		else if(minute != d.minute)
+			return (minute > d.minute)
 		else
 			return false
 	}
@@ -67,6 +90,17 @@ class Reservation {
 			fullnom += "0"
 			
 		fullnom += minute + ", le " + jour + "/" + mois + "/" + annee + " (" + duree + " minutes)" 
+		
+		return  fullnom
+	}
+	
+	String toFullString(){
+		String fullnom = new String("Reservation pour le cours " + cours + ", dans la salle " + salle + " a " + heure + "h")
+		
+		if(minute < 10)
+			fullnom += "0"
+		
+		fullnom += minute + ", le " + jour + "/" + mois + "/" + annee + " (" + duree + " minutes)"
 		
 		return  fullnom
 	}

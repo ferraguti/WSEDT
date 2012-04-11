@@ -1,18 +1,17 @@
 package wsedt.Algo
 
 import java.util.ArrayList;
-import java.util.Date
 
 import wsedt.Reservation;
 import wsedt.Salle;
+import wsedt.Cours;
 
 abstract class Algo {
 	
 	static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment, int capaciteMin){
 		
-		System.out.println("Reservation pour le " + jour + "/" + mois + "/" + annee +", a " + heure + "h" + minute)
-		
 	   Reservation arg = new Reservation(annee: annee, mois: mois, jour: jour, heure: heure, minute: minute)
+	   //System.out.println("Reservation pour le " + arg)
 	   ArrayList<Reservation> reservations = Reservation.getAll()
 	   //System.out.println("Liste des reservations : " + reservations)
 	   ArrayList<Salle> sallesNonLibres = new ArrayList<Salle>()
@@ -26,6 +25,7 @@ abstract class Algo {
 			   //System.out.println("Fin de la reservation : " + finCours)
 			   
 			   //Si la salle n'est pas libre (ie. en même temps ou entre le cours)
+			   //System.out.println("Reponse : " + arg.estApres(debutReservation))
 				if(debutReservation.enMemeTemps(arg) || (arg.estApres(debutReservation) && arg.estAvant(finCours))){
 					//System.out.println("La salle " + s + " n'est pas libre")
 					sallesNonLibres.add(s)
@@ -80,29 +80,20 @@ abstract class Algo {
 	 static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, int capaciteMin){
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), capaciteMin)
 	}
-	
-	 //Marche pas :
-	
-	 static String rechercherSalles(int jour, int heure, int minute){
-		 Date now = new Date()
+	 
+	 //Reservation à partir d'un cours
+	 
+	 static ArrayList<Reservation> listerReservations(Cours c){
+		 ArrayList<Reservation> reservations = Reservation.getAll()
+		 ArrayList<Reservation> reservationsRelated = new ArrayList<Reservation>() 
 		 
-		return rechercherSalles(now.getYear() - 100 + 2000, now.getMonth() + 1, jour, heure, minute, new String(""), 0)
-	}
-	 
-	
-	static String rechercherSalles(int jour, int heure, int minute, String batiment){
-		Date now = new Date()
-		
-		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, batiment, 0)
-	 }
-	 
-	  static String rechercherSalles(int jour, int heure, int minute, int capaciteMin){
-		  Date now = new Date()
+		 for(r in reservations){
+			 if (r.getCours().equals(c))
+			 	reservationsRelated.add(r)
+		 }
+		 
+		 return reservationsRelated
 		  
-		 return rechercherSalles(now.getYear(), now.getMonth(), jour, heure, minute, new String(""), capaciteMin)
-	 }
-	 
-	 
-
-
+	  }
+	
 }
