@@ -39,6 +39,7 @@ class BootStrap {
 			new Cours(nom: "JEE Projet, TP7", nbrInscrits: 20).save(failOnError: true)
 			new Cours(nom: "MA TD : Scrum BDD", nbrInscrits: 15).save(failOnError: true)
 			new Cours(nom: "QCM JEE et IAWS", nbrInscrits: 20).save(failOnError: true)
+			new Cours(nom: "Oral Projet", nbrInscrits: 80).save(failOnError: true)
 		}
 		
 		if(!Reservation.count()){

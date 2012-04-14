@@ -24,6 +24,10 @@ class Reservation {
 		nom nullable: true
     }
 	
+	static mapping = {
+		cours cascade: 'none'
+	  }
+	
 	 Reservation(Reservation r) {
 		this.salle = r.salle;
 		this.cours = r.cours;
