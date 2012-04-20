@@ -1,0 +1,207 @@
+h3. Set up the DataSource and Test data
+
+To get us started quickly, we'll use a preconfigured HSQLDB instance.  [Download the test files here|http://plugins.grails.org/grails-ibatis/tags/LATEST_RELEASE/src/docs/guide/testDb.zip]
+and extract into your main project folder.  You'll now have these files:
+{code}
+testDb.properties
+testDb.script
+accounts.csv
+{code}
+
+
+These files are typical for an HSQLDB instance.  @testDb.script@ defines the test table
+we'll use for this example.
+
+
+{table}
+ * table ACCOUNT * | | |
+ ID | ACCOUNT_HOLDER | ACCOUNT_TYPE | INCEPTION_DATE
+primary key | varchar(100) | varchar(10), one of 'savings' or 'checking' | date
+{table}
+
+
+The data file @accounts.csv@ contains our test data
+
+{code}
+0,Matthew Bellamy,checking,2009-01-01
+1,Matthew Bellamy,savings,2009-01-05
+2,Christopher Wolstenholme,checking,2009-04-22
+3,Dominic Howard,savings,2009-10-15
+{code}
+
+The MyBatis plugin uses the standard @DataSource.groovy@ file to define the
+connections, just like GORM.  Changing our application to use our test database is just a matter
+of modifying @grails-app/conf/DataSource.groovy@ to set the proper connection properties:
+{code}
+environments {
+        ...
+        test {
+                dataSource {
+                        dbCreate = "update"
+                        url = "jdbc:hsqldb:file:testDb;shutdown=true"
+                }
+        }
+        ...
+}
+{code}
+
+h3. Create our POGO
+
+Now we'll define a Groovy object to store our table data.  Create the file @src/groovy/com/example/AccountInfo.groovy@ :
+{code}
+package com.example
+
+enum AccountType { checking, savings }
+
+class AccountInfo {
+    Long id
+    String accountHolder
+    AccountType accountType
+    Date inceptionDate
+}
+{code}
+
+h3. Install the MyBatis plugin
+
+Within your Grails application, install the MyBatis plugin using the command
+{code}
+grails install-plugin ibatis
+{code}
+
+You should now have a new Grails target 'create-gateway'.
+
+h3. Create a gateway class
+
+The @create-gateway@ target will generate our gateway class, MyBatis mapping file,
+and integration test.
+
+{code}
+grails create-gateway com.example.Account
+{code}
+
+Under @grails-app/gateways@ , you should see the following files:
+{code}
+user ~ $  ls grails-app/gateways/com/example
+  AccountGateway.groovy
+  account.xml
+{code}
+
+If you look at the contents of @AccoutGateway.groovy@ , you'll see only a class definition.
+We won't define our methods here.  Rather, we'll add operations to the associated
+mapping file.
+
+h3. Add operations to the mapping file
+
+Our MyBatis mapping file, @account.xml@ , will define all of our database operations.
+Each operation defined here gets automatically exposed as a method on our gateway class.
+
+{note}
+This quick start is a bit contrived, given that all of the operations we will define
+can more easily be expressed in GORM.  See the Introduction
+for tips about when you _might_ want to use MyBatis over GORM.
+{note}
+
+{code:xml}
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.account">
+
+    <select id="getAccountByID" resultMap="accountResultMap">
+        select id, account_holder, account_type, inception_date
+        from account
+        where id = #{value,jdbcType=NUMERIC}
+    </select>
+
+    <select id="getAccountsOfType" parameterType="string" resultMap="accountResultMap">
+        select id, account_holder, account_type, inception_date
+        from account
+        where account_type = #{value,jdbcType=VARCHAR}
+        order by account_holder
+    </select>
+
+    <select id="getAccountsOpenedSince" parameterType="date"resultMap="accountResultMap">
+        select id, account_holder, account_type, inception_date
+        from account
+        where inception_date &gt; #{value,jdbcType=DATE}
+        order by inception_date
+    </select>
+
+    <update id="updateAccount" parameterType="com.example.raAccountInfo">
+        update account
+        set account_holder = #{accountHolder}
+            account_type = #{accountType,jdbcType=VARCHAR}
+            inception_date = #{inceptionDate}
+        where id = #{id}
+    </update>
+
+    <resultMap id="accountResultMap" type="com.example.AccountInfo">
+      <result column="account_holder" property="accountHolder"/>
+      <result column="account_type" property="accountType"/>
+      <result column="inception_date" property="inceptionDate"/>
+    </resultMap>
+</mapper>
+{code}
+{note}
+The above syntax might seem slightly off to experienced iBATIS/MyBatis 2.x users.
+This is the new MyBatis 3.x format; you'll find it similar (but not totally compatible)
+with the 2.x syntax.
+{note}
+
+h3. Integration Test
+
+We'll put it all together in the integration test.  The @create-gateway@ Grails target created an integration test,
+@test/integration/com/example/AccountGatewayTests.groovy@ :
+
+{code}
+package com.example
+
+import grails.test.*
+
+/* In these tests, the property 'gateway' is provided by the superclass */
+class AccountGatewayTests extends GatewayIntegrationTest {
+
+  /* Our simplest case: call the 'getAccountByID' operation to retrieve a single value */
+  void testAccountById() {
+    def chris = gateway.getAccountByID(2)
+    // from our test data, "2,Christopher Wolstenholme,checking,2009-04-22"
+    assert chris?.accountHolder == 'Christopher Wolstenholme'
+    assert chris?.accountType == AccountType.checking
+
+    assert !gateway.getAccountByID(-5)
+  }
+
+  /* Multiple result values: since we included the plural form 'Accounts'
+     in our operation name, we expect multiple rows */
+  void testAccountsOfType() {
+    def checkingAccounts = gateway.getAccountsOfType(AccountType.checking)
+    assert checkingAccounts?.size() == 2
+  }
+
+  /* Note that in the operation we had to escape the '>' sign */
+  void testAccountsOpenedSince() {
+    def referenceDate = Calendar.getInstance(TimeZone.getTimeZone('GMT'))
+    referenceDate.clear()
+    referenceDate.set(2009, Calendar.MARCH, 1)
+    def newAccounts = gateway.getAccountsOpenedSince(referenceDate.time)
+    assert newAccounts?.size() == 2
+    newAccounts.each {
+      assert referenceDate.time.before(it?.inceptionDate)
+    }
+  }
+
+  /* We can also update */
+  void testUpdate() {
+    def dominic = gateway.getAccountByID(3)
+    assert dominic?.accountType == AccountType.savings
+
+    dominic.accountType = AccountType.checking
+    gateway.updateAccount(dominic)
+
+    assert gateway.getAccountByID(3).accountType == AccountType.checking
+  }
+}
+{code}
+
+Run the Grails target @test-app@ and look at the generated file @target/test-reports/html/index.html@ .
+You should see success for all our test cases.

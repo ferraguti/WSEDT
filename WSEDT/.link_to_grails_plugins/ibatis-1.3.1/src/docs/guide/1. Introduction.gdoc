@@ -1,0 +1,25 @@
+The [MyBatis|http://www.mybatis.org/java.html] project is a persistence framework
+developed by Clinton Begin.  It's SQL-oriented; that is, developers
+write SQL statements to perform all of the ORM operations.
+{note}
+Prior to 2010, MyBatis was hosted at Apache and was known as *iBATIS*.  You may still notice this legacy in
+the documentation and code (including the name of this plugin).
+{note}
+
+h2. Why would I use MyBatis?
+
+The question arises: why would we want to use another persistence framework when Grails already includes
+[GORM|http://grails.org/doc/latest/guide/5.%20Object%20Relational%20Mapping%20(GORM).html]?  GORM is, arguably, the most productive ORM implementation available.
+The underlying Hibernate framework is extremely flexible and can be fit to any 'corner case' persistence
+issue.
+
+GORM and MyBatis are complementary approaches.  Generally, *prefer GORM over MyBatis*.  However, there
+are a few situations where you _may_ find MyBatis to express the concepts more clearly.  Here are a
+few examples:
+ * Working with stored procedures, such as in a [Transaction Script|http://martinfowler.com/eaaCatalog/transactionScript.html] architecture
+ * Projects where database developers need to perform fine-grained tuning of SQL
+ * Porting of legacy applications to Grails
+
+h2. Where can I find out more about MyBatis?
+
+A great source of information is the [MyBatis User Guide|http://mybatis.googlecode.com/svn/trunk/doc/en/MyBatis-3-User-Guide.pdf].

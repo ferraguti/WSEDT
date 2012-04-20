@@ -1,0 +1,182 @@
+This XML file does not appear to have any style information associated with it. The document tree is shown below.
+<wsdl:definitions xmlns:soapenc12="http://www.w3.org/2003/05/soap-encoding" xmlns:tns="http://wsedt" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap11="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc11="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope" targetNamespace="http://wsedt">
+<wsdl:types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://wsedt">
+<xsd:element name="rechercherSallesParCapacite">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesParCapaciteResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesLight">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesLightResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesParBatiment">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesParBatimentResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesFull">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="in1" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in2" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in3" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in4" type="xsd:int"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in5" nillable="true" type="xsd:string"/>
+<xsd:element maxOccurs="1" minOccurs="1" name="in6" type="xsd:int"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="rechercherSallesFullResponse">
+<xsd:complexType>
+<xsd:sequence>
+<xsd:element maxOccurs="1" minOccurs="1" name="out" nillable="true" type="xsd:string"/>
+</xsd:sequence>
+</xsd:complexType>
+</xsd:element>
+<xsd:element name="annee" type="xsd:int"/>
+</xsd:schema>
+</wsdl:types>
+<wsdl:message name="rechercherSallesLightRequestHeaders">
+<wsdl:part name="annee" element="tns:annee"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParCapaciteResponse">
+<wsdl:part name="parameters" element="tns:rechercherSallesParCapaciteResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParBatimentRequestHeaders">
+<wsdl:part name="annee" element="tns:annee"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParBatimentResponse">
+<wsdl:part name="parameters" element="tns:rechercherSallesParBatimentResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesLightResponse">
+<wsdl:part name="parameters" element="tns:rechercherSallesLightResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParCapaciteRequest">
+<wsdl:part name="parameters" element="tns:rechercherSallesParCapacite"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParCapaciteRequestHeaders">
+<wsdl:part name="annee" element="tns:annee"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesFullResponse">
+<wsdl:part name="parameters" element="tns:rechercherSallesFullResponse"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesLightRequest">
+<wsdl:part name="parameters" element="tns:rechercherSallesLight"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesParBatimentRequest">
+<wsdl:part name="parameters" element="tns:rechercherSallesParBatiment"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesFullRequestHeaders">
+<wsdl:part name="annee" element="tns:annee"></wsdl:part>
+</wsdl:message>
+<wsdl:message name="rechercherSallesFullRequest">
+<wsdl:part name="parameters" element="tns:rechercherSallesFull"></wsdl:part>
+</wsdl:message>
+<wsdl:portType name="rechercherSalles">
+<wsdl:operation name="rechercherSallesParCapacite">
+<wsdl:input name="rechercherSallesParCapaciteRequest" message="tns:rechercherSallesParCapaciteRequest"></wsdl:input>
+<wsdl:output name="rechercherSallesParCapaciteResponse" message="tns:rechercherSallesParCapaciteResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesLight">
+<wsdl:input name="rechercherSallesLightRequest" message="tns:rechercherSallesLightRequest"></wsdl:input>
+<wsdl:output name="rechercherSallesLightResponse" message="tns:rechercherSallesLightResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesParBatiment">
+<wsdl:input name="rechercherSallesParBatimentRequest" message="tns:rechercherSallesParBatimentRequest"></wsdl:input>
+<wsdl:output name="rechercherSallesParBatimentResponse" message="tns:rechercherSallesParBatimentResponse"></wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesFull">
+<wsdl:input name="rechercherSallesFullRequest" message="tns:rechercherSallesFullRequest"></wsdl:input>
+<wsdl:output name="rechercherSallesFullResponse" message="tns:rechercherSallesFullResponse"></wsdl:output>
+</wsdl:operation>
+</wsdl:portType>
+<wsdl:binding name="rechercherSallesHttpBinding" type="tns:rechercherSalles">
+<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+<wsdl:operation name="rechercherSallesParCapacite">
+<wsdlsoap:operation soapAction=""/>
+<wsdl:input name="rechercherSallesParCapaciteRequest">
+<wsdlsoap:body use="literal"/>
+<wsdlsoap:header message="tns:rechercherSallesParCapaciteRequestHeaders" part="annee" use="literal"></wsdlsoap:header>
+</wsdl:input>
+<wsdl:output name="rechercherSallesParCapaciteResponse">
+<wsdlsoap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesLight">
+<wsdlsoap:operation soapAction=""/>
+<wsdl:input name="rechercherSallesLightRequest">
+<wsdlsoap:body use="literal"/>
+<wsdlsoap:header message="tns:rechercherSallesLightRequestHeaders" part="annee" use="literal"></wsdlsoap:header>
+</wsdl:input>
+<wsdl:output name="rechercherSallesLightResponse">
+<wsdlsoap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesParBatiment">
+<wsdlsoap:operation soapAction=""/>
+<wsdl:input name="rechercherSallesParBatimentRequest">
+<wsdlsoap:body use="literal"/>
+<wsdlsoap:header message="tns:rechercherSallesParBatimentRequestHeaders" part="annee" use="literal"></wsdlsoap:header>
+</wsdl:input>
+<wsdl:output name="rechercherSallesParBatimentResponse">
+<wsdlsoap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+<wsdl:operation name="rechercherSallesFull">
+<wsdlsoap:operation soapAction=""/>
+<wsdl:input name="rechercherSallesFullRequest">
+<wsdlsoap:body use="literal"/>
+<wsdlsoap:header message="tns:rechercherSallesFullRequestHeaders" part="annee" use="literal"></wsdlsoap:header>
+</wsdl:input>
+<wsdl:output name="rechercherSallesFullResponse">
+<wsdlsoap:body use="literal"/>
+</wsdl:output>
+</wsdl:operation>
+</wsdl:binding>
+<wsdl:service name="rechercherSalles">
+<wsdl:port name="rechercherSallesHttpPort" binding="tns:rechercherSallesHttpBinding">
+<wsdlsoap:address location="http://localhost:8080/WSEDT/services/rechercherSalles"/>
+</wsdl:port>
+</wsdl:service>
+</wsdl:definitions>

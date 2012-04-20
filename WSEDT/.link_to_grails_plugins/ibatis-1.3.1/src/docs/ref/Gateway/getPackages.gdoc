@@ -1,0 +1,21 @@
+
+h1. getPackages
+
+h2. Purpose
+
+
+
+h2. Examples
+
+{code:java}
+foo.getPackages(object)
+{code}
+
+h2. Description
+
+
+
+Arguments:
+
+[* @object@
+]

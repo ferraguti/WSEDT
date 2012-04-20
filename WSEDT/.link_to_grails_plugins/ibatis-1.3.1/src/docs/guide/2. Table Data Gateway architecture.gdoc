@@ -1,0 +1,19 @@
+This plugin implements the [Table Data Gateway|http://martinfowler.com/eaaCatalog/tableDataGateway.html] pattern,
+as described in the excellent [Patterns of Enterprise Application Architecture|http://martinfowler.com/books.html#eaa]
+book by [Martin Fowler|http://www.martinfowler.com/].  To excerpt:
+
+{code:xml}
+Mixing SQL in application logic can cause several problems.
+Many developers aren't comfortable with SQL, and many who are comfortable may not write it well.
+Database administrators need to be able to find SQL easily so they can figure out how to
+tune and evolve the database.
+
+A Table Data Gateway holds all the SQL for accessing a single table or view:
+selects, inserts, updates, and deletes.
+Other code calls its methods for all interaction with the database.
+{code}
+
+One of the consequences of this design is that our application logic
+must have knowledge of the underlying database schema.  The class that
+fills this role is called the *Gateway*.  The objects passed to and
+from the Gateway are POGOs (or POJOs).

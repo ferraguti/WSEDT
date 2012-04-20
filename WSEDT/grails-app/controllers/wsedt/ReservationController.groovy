@@ -23,8 +23,6 @@ class ReservationController {
         def reservationInstance = new Reservation(params)
 		
 		if(reservationInstance.getSalle().getCapacite() < reservationInstance.getCours().getNbrInscrits()){
-			System.out.println("ERREUR")
-			
 			flash.message = "Erreur : la salle ne contient pas assez de place pour accueillir le cours"
 			redirect(action: "create")
 		}

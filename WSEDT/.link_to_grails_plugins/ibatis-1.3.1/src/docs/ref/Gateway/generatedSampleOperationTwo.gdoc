@@ -1,0 +1,21 @@
+
+h1. generatedSampleOperationTwo
+
+h2. Purpose
+
+
+
+h2. Examples
+
+{code:java}
+foo.generatedSampleOperationTwo(object)
+{code}
+
+h2. Description
+
+
+
+Arguments:
+
+[* @object@
+]
