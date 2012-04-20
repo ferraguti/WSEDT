@@ -1,5 +1,6 @@
 *.iws
 *.war
+*.class
 .classpath
 .DS_Store
 .project
@@ -10,8 +11,5 @@
 stacktrace.log
 test/reports
 target/
-target-eclipse/
 web-app/WEB-INF/classes/
 *DB*
-/WSEDT/target-eclipse
-/WSEDT/.classpath
