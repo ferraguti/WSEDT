@@ -7,5 +7,17 @@
     <!--<select id="select" parameterType="int" resultType="Foo">
         select * from salle where id = #{id:NUMERIC}
     </select> -->
+    
+    <select id="findByNom" parameterType="string" resultMap="salleResultMap">
+        select id, nom, batiment, capacite
+        from account
+        where nom = #{value,jdbcType=VARCHAR}
+    </select>
+    
+     <resultMap id="salleResultMap" type="wsedt.Salle">
+      <result column="nom" property="nom"/>
+      <result column="batiment" property="batiment"/>
+      <result column="capacite" property="capacite"/>
+    </resultMap>
 
 </mapper>
