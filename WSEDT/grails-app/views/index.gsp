@@ -103,14 +103,13 @@
 			</ul>
 		</div>
 		<div id="page-body" role="main">
-			<h1>Welcome to Grails</h1>
-			<p>Congratulations, you have successfully started your first Grails application! At the moment
-			   this is the default page, feel free to modify it to either redirect to a controller or display whatever
-			   content you may choose. Below is a list of controllers that are currently deployed in this application,
-			   click on each to execute its default action:</p>
+			<h1>Welcome !</h1>
+			<p>Bienvenu sur le site de gestion de reservation de l'Universite Paul Sabatier. 
+			Ici vous pourrez creer, modifier, supprimer et lister un ensemble de salle et de cours afin d'obtenir une reservation.
+			</p>
 
 			<div id="controller-list" role="navigation">
-				<h2>Available Controllers:</h2>
+				<h2>Controlleurs disponibles:</h2>
 				<ul>
 					<g:each var="c" in="${grailsApplication.controllerClasses.sort { it.name } }">
 						<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.name}</g:link></li>

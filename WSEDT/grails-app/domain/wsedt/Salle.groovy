@@ -3,8 +3,6 @@ package wsedt
 class Salle {
 	String nom, batiment
 	int capacite
-	
-	//boolean tp
 
     static constraints = {
 		nom blank: false

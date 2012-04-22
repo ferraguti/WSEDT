@@ -6,14 +6,19 @@ import wsedt.Reservation;
 import wsedt.Salle;
 import wsedt.Cours;
 
+
+//Classe qui contient les algorithmes utilisés pour les services
 abstract class Algo {
 	
+	//Renvois la liste des salles disponibles pour une date, un batiment et une capacité donnés
 	static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment, int capaciteMin){
 		
+		//On calcul la reservation équivalente à la date donnée
 	   Reservation arg = new Reservation(annee: annee, mois: mois, jour: jour, heure: heure, minute: minute)
-	   //System.out.println("Reservation pour le " + arg)
+	   
+	   //On récupère toutes les reservations
 	   ArrayList<Reservation> reservations = Reservation.getAll()
-	   //System.out.println("Liste des reservations : " + reservations)
+	   
 	   ArrayList<Salle> sallesNonLibres = new ArrayList<Salle>()
 	   
 		//Trouver toutes les salles non disponibles
@@ -22,32 +27,22 @@ abstract class Algo {
 			
 			if(!sallesNonLibres.contains(s)){
 			   Reservation finCours = debutReservation.getFinReservation()
-			   //System.out.println("Fin de la reservation : " + finCours)
 			   
 			   //Si la salle n'est pas libre (ie. en même temps ou entre le cours)
-			   //System.out.println("Reponse : " + arg.estApres(debutReservation))
-				if(debutReservation.enMemeTemps(arg) || (arg.estApres(debutReservation) && arg.estAvant(finCours))){
-					//System.out.println("La salle " + s + " n'est pas libre")
+				if(debutReservation.enMemeTemps(arg) || (arg.estApres(debutReservation) && arg.estAvant(finCours)))
 					sallesNonLibres.add(s)
-				}
 			}
 		}
-		
-		//System.out.println("Liste des salles non libres : " + sallesNonLibres)
 	   
 		//Les autres salles sont celles disponibles
 		ArrayList<Salle> salles = Salle.getAll()
-		//System.out.println("Liste des salles : " + salles)
 		ArrayList<Salle> sallesLibres = new ArrayList<Salle>()
 		
 		for(Salle s : salles){
-			//System.out.println(Algo.contient(sallesNonLibres, s))
 			if(!Algo.contient(sallesNonLibres, s)) {
 				if(batiment.isEmpty() || s.getBatiment().equals(batiment)){ //On vérifie si le batiment de la salle est celui demandé
-					if(capaciteMin == 0 || s.getCapacite() >= capaciteMin) {//On vérifie si la capacité minimum de la salle est celle demandée
+					if(capaciteMin == 0 || s.getCapacite() >= capaciteMin)//On vérifie si la capacité minimum de la salle est celle demandée
 						sallesLibres.add(s)
-						//System.out.println("La salle " + s + " est donc libre")
-					}
 				}
 			}
 		}
@@ -55,7 +50,7 @@ abstract class Algo {
 		return sallesLibres.toString()
 	}
 	
-	//Pour une raison inconnue "contiens" ne marche pas ici
+	//Pour une raison inconnue "List.contiens" ne marche pas ici
 	 static boolean contient(ArrayList<Salle> sallesNonLibres, Salle salle){
 		for(Salle s : sallesNonLibres){
 			if(s.toString().equals(salle.toString()))
@@ -72,7 +67,6 @@ abstract class Algo {
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), 0)
 	}
 	
-	
 	 static String rechercherSalles(int annee, int mois, int jour, int heure, int minute, String batiment){
 		return rechercherSalles(annee, mois, jour, heure, minute, batiment, 0)
 	}
@@ -81,8 +75,7 @@ abstract class Algo {
 		return rechercherSalles(annee, mois, jour, heure, minute, new String(""), capaciteMin)
 	}
 	 
-	 //Reservation à partir d'un cours
-	 
+	 //Renvois toutes les reservations concernant le cours donné en paramètre
 	 static ArrayList<Reservation> listerReservations(Cours c){
 		 ArrayList<Reservation> reservations = Reservation.getAll()
 		 ArrayList<Reservation> reservationsRelated = new ArrayList<Reservation>() 
@@ -93,7 +86,6 @@ abstract class Algo {
 		 }
 		 
 		 return reservationsRelated
-		  
 	  }
 	
 }

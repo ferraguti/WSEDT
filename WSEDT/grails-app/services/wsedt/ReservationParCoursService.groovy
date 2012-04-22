@@ -5,10 +5,12 @@ import javax.jws.WebParam
 import wsedt.Algo.Algo
 import wsedt.Reservation
 
+//Services de creation, modification, suppression et listage de reservations pour un cours donné
 class ReservationParCoursService {
 	
 	static expose=['xfire']
 	
+	//Service de listage de reservations pour un cours donné
 	String listerReservations(@WebParam(name="coursNom", header=true)String coursNom){
 		Cours c = Cours.findByNom(coursNom)
 		
@@ -23,13 +25,15 @@ class ReservationParCoursService {
 		ArrayList<Reservation> reservations = Algo.listerReservations(c)
 			
 		ArrayList<String> res = new ArrayList<String>()
-			
+		
+		//On construit la chaine de caractère qui décrit toutes les reservations de ce cours 
 		for(r in reservations)
 			res.add(r.toFullString())
 			
 		return res.toString()
 	}
 	
+	//Service de suppression de reservations pour un cours donné
 	String supprimerReservation(@WebParam(name="coursNom", header=true)String coursNom){
 		Cours c = Cours.findByNom(coursNom)
 		
@@ -53,6 +57,7 @@ class ReservationParCoursService {
 
 	}
 	
+	//Service de creation de reservations pour un cours et une salle donnés
 	String creerReservation(@WebParam(name="coursNom", header=true)String coursNom, @WebParam(name="salleNom", header=true)String salleNom, @WebParam(name="annee", header=true) int annee, @WebParam(name="mois", header=true) int mois, @WebParam(name="jour", header=true) int jour, @WebParam(name="heure", header=true) int heure, @WebParam(name="minute", header=true) int minute, @WebParam(name="duree", header=true)int duree){
 		Cours c = Cours.findByNom(coursNom)
 		
@@ -84,6 +89,82 @@ class ReservationParCoursService {
 		
 	}
 	
+	//Service de modification de la salle d'une reservation
+	String modifierReservationSalle(@WebParam(name="coursNom", header=true)String coursNom, @WebParam(name="salleNom", header=true) String salleNom){
+		Cours c = Cours.findByNom(coursNom)
+		
+		try{
+			c.id
+		}
+		catch(NullPointerException e){
+			return "Le cours " + coursNom + " n'existe pas"
+		}
+		
+		Reservation r = c.getReservation()
+		
+		try{
+			r.id
+		}
+		catch(NullPointerException e){
+			return "Le cours " + coursNom + " n'a pas de reservation associe"
+		}
+		
+		Salle s = Salle.findByNom(salleNom)
+		
+		try{
+			s.id
+		}
+		catch(NullPointerException ex){
+			return "La salle " + salleNom + " n'existe pas. Il faut donner le nom de la salle seulement, pas celui du batiment"
+		}
+		
+		//Seul façon que j'ai trouver de forcer la mise a jour de la valeur
+		Reservation r2 = new Reservation(r)
+		r2.setSalle(s)
+		r.delete(flush: true)
+		r2.save(failOnError: true)
+		
+		return "La salle du cours " + coursNom + " a ete modifiee avec succes"
+	}
+	
+	//Service de modification du cours d'une reservation
+	String modifierReservationCours(@WebParam(name="coursNom", header=true)String coursNom, @WebParam(name="nouveauCoursNom", header=true) String nouveauCoursNom){
+		Cours c = Cours.findByNom(coursNom)
+		
+		try{
+			c.id
+		}
+		catch(NullPointerException e){
+			return "Le cours " + coursNom + " n'existe pas"
+		}
+		
+		Reservation r = c.getReservation()
+		
+		try{
+			r.id
+		}
+		catch(NullPointerException e){
+			return "Le cours " + coursNom + " n'a pas de reservation associe"
+		}
+		
+		c = Cours.findByNom(nouveauCoursNom)
+		
+		try{
+			c.id
+		}
+		catch(NullPointerException ex){
+			return "Le cours " + nouveauCoursNom + " n'existe pas"
+		}
+		
+		Reservation r2 = new Reservation(r)
+		r2.setCours(c)
+		r.delete(flush: true)
+		r2.save(failOnError: true)
+		
+		return "Le cours a ete modifiee avec succes"
+	}
+	
+	//Service de modification des autres champs d'une reservation. Le paramètre "champ" définit lequel et "valeur" sa nouvelle valeur
 	String modifierReservationValeur(@WebParam(name="coursNom", header=true)String coursNom, @WebParam(name="camp", header=true) String champ, @WebParam(name="valeur", header=true) int valeur){
 		Cours c = Cours.findByNom(coursNom)
 		
@@ -120,7 +201,7 @@ class ReservationParCoursService {
 		else
 			return ("Le champ " + champ + " est inconnu")
 		
-		//Seul façon que j'ai trouver de forcer la mise a jour de la valeur
+		
 		r.delete(flush: true)
 		r2.save(failOnError: true)
 		
@@ -128,40 +209,5 @@ class ReservationParCoursService {
 		return "La reservation du cours " + coursNom + " a ete modifiee avec succes"
 	}
 	
-	String modifierReservationSalle(@WebParam(name="coursNom", header=true)String coursNom, @WebParam(name="salleNom", header=true) String salleNom){
-		Cours c = Cours.findByNom(coursNom)
-		
-		try{
-			c.id
-		}
-		catch(NullPointerException e){
-			return "Le cours " + coursNom + " n'existe pas"
-		}
-		
-		Reservation r = c.getReservation()
-		
-		try{
-			r.id
-		}
-		catch(NullPointerException e){
-			return "Le cours " + coursNom + " n'a pas de reservation associe"
-		}
-		
-		Salle s = Salle.findByNom(salleNom)
-		
-		try{
-			s.id
-		}
-		catch(NullPointerException ex){
-			return "La salle " + salleNom + " n'existe pas. Il faut donner le nom de la salle seulement, pas celui du batiment"
-		}
-		
-		Reservation r2 = new Reservation(r)
-		r2.setSalle(s)
-		r.delete(flush: true)
-		r2.save(failOnError: true)
-		
-		return "La salle du cours " + coursNom + " a ete modifiee avec succes"
-	}
 	
 }

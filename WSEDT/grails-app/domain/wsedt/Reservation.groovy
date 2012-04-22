@@ -12,13 +12,13 @@ class Reservation {
 	int jour = 1
 	int heure = 8
 	int minute = 0
-	String nom //utilisé pour avoir un nom identifiable dans list
+	String nom //utilisé pour avoir un nom identifiable dans le controlleur "list"
 
     static constraints = {
         duree min: 15, max: 240
 		annee min: 2012
 		mois min: 1, max: 12
-		jour min: 1, max: 31 // + de contrainte en vraie
+		jour min: 1, max: 31
 		heure min: 8, max: 19
 		minute min: 0, max: 59
 		nom nullable: true
@@ -98,6 +98,7 @@ class Reservation {
 		return  fullnom
 	}
 	
+	//Indique en plus le cours et la salle
 	String toFullString(){
 		String fullnom = new String("Reservation pour le cours " + cours + ", dans la salle " + salle + " a " + heure + "h")
 		
@@ -109,6 +110,7 @@ class Reservation {
 		return  fullnom
 	}
    
+	//Donne l'heure de fin de la reservation
     Reservation getFinReservation(){
         Reservation apresCours = new Reservation(this)
 		int heure = apresCours.getHeure()

@@ -22,22 +22,22 @@ class ReservationController {
     def save() {
         def reservationInstance = new Reservation(params)
 		
+		//Vérifie que la salle est asse grande pour le cours
 		if(reservationInstance.getSalle().getCapacite() < reservationInstance.getCours().getNbrInscrits()){
 			flash.message = "Erreur : la salle ne contient pas assez de place pour accueillir le cours"
 			redirect(action: "create")
 		}
 		else{
+	        if (!reservationInstance.save(flush: true)) {
+	            render(view: "create", model: [reservationInstance: reservationInstance])
+	            return
+	        } 
+				//Mise à jour du nom
+				reservationInstance.setNom(reservationInstance.toString())
 		
-        if (!reservationInstance.save(flush: true)) {
-            render(view: "create", model: [reservationInstance: reservationInstance])
-            return
-        } 
-			//Mise à jour du nom
-			reservationInstance.setNom(reservationInstance.toString())
-	
-			flash.message = message(code: 'default.created.message', args: [message(code: 'reservation.label', default: 'Reservation'), reservationInstance.id])
-	        redirect(action: "show", id: reservationInstance.id)
-		}
+				flash.message = message(code: 'default.created.message', args: [message(code: 'reservation.label', default: 'Reservation'), reservationInstance.id])
+		        redirect(action: "show", id: reservationInstance.id)
+			}
     }
 
     def show() {
